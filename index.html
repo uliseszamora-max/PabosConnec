@@ -1,10 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <title>Mi Página Web</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8">
+  <title>Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f4ff, #e0f7fa);
+      margin: 0;
+      padding: 0;
+    }
 
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 5px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      background-color: #f9f9f9;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      background: #00b4d8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0096c7;
+    }
+
+    .post {
+      border-top: 1px solid #eee;
+      padding: 20px 0;
+    }
+
+    .post img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .post strong {
+      color: #0077b6;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
 <body>
 
   <header>
@@ -33,6 +115,54 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let currentUser = "";
+
+    function login() {
+      const usernameInput = document.getElementById('username');
+      currentUser = usernameInput.value.trim();
+
+      if (currentUser !== "") {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('forum-section').style.display = 'block';
+      } else {
+        alert("Por favor, ingresa tu nombre de usuario.");
+      }
+    }
+
+    const form = document.getElementById('form');
+    const posts = document.getElementById('posts');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const mensaje = document.getElementById('mensaje').value;
+      const imagenInput = document.getElementById('imagen');
+      const imagen = imagenInput.files[0];
+
+      const post = document.createElement('div');
+      post.className = 'post';
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        post.innerHTML = `<strong>${currentUser}</strong><p>${mensaje}</p>`;
+        if (imagen) {
+          const img = document.createElement('img');
+          img.src = event.target.result;
+          post.appendChild(img);
+        }
+        posts.prepend(post);
+        form.reset();
+      };
+
+      if (imagen) {
+        reader.readAsDataURL(imagen);
+      } else {
+        post.innerHTML = `<strong>${currentUser}</strong><p>${mensaje}</p>`;
+        posts.prepend(post);
+        form.reset();
+      }
+    });
+  </script>
 </body>
 </html>
