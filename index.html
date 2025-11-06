@@ -93,11 +93,12 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const supabaseUrl = 'https://pn0jdukyo4rjosjtehwr.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuYmp1ZGt5dWpvaXFzamhlaHhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNzc1NTYsImV4cCI6MjA3Nzk1MzU1Nn0.uUyNaDpzEtSJPJ_utOdOQLMS9bNEg0MtGjQip0vHXx4'; // ← pega aquí tu clave completa
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabase = supabase.createClient(
+      'https://pn0jdukyo4rjosjtehwr.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBuYmp1ZGt5dWpvaXFzamhlaHhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIzNzc1NTYsImV4cCI6MjA3Nzk1MzU1Nn0.uUyNaDpzEtSJPJ_utOdOQLMS9bNEg0MtGjQip0vHXx4' // ← pega aquí tu clave completa
+    );
 
+    document.addEventListener('DOMContentLoaded', () => {
       let currentUser = "";
 
       const loginBtn = document.getElementById('login-btn');
